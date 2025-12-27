@@ -326,7 +326,8 @@ h1 {
 .section-title {
     text-align: center;
     font-size: 2.2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 6rem;
+    /* Lifted much higher from photos */
     position: relative;
     display: inline-block;
 }
@@ -346,7 +347,8 @@ h1 {
 /* 3D Stage Carousel */
 #projects {
     perspective: 2500px;
-    padding: 60px 0 150px;
+    padding: 120px 0 150px;
+    /* Increased top gap with CV section */
     overflow: hidden;
     min-height: 900px;
     display: flex;
