@@ -154,4 +154,45 @@ document.addEventListener('DOMContentLoaded', () => {
         // Start typing after a short delay
         setTimeout(typeWriter, 1000);
     }
+
+    // Navbar Mobile Toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    const navItems = document.querySelectorAll('.nav-item');
+
+    if (navToggle) {
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('open');
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    // Close menu when clicking a link
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            navToggle.classList.remove('open');
+            navLinks.classList.remove('active');
+        });
+    });
+
+    // Active link highlighting on scroll
+    window.addEventListener('scroll', () => {
+        let current = '';
+        const sections = document.querySelectorAll('header, section, main');
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (pageYOffset >= (sectionTop - 150)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navItems.forEach(item => {
+            item.classList.remove('active');
+            if (item.getAttribute('href').includes(current)) {
+                item.classList.add('active');
+            }
+        });
+    });
 });
