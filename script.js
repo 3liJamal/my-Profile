@@ -261,14 +261,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getAIResponse(input) {
         const msg = input.toLowerCase();
-        if (msg.includes('skill') || msg.includes('know') || msg.includes('techno')) {
+        if (msg.includes('name') || msg.includes('who are you')) {
+            return "I am Aura, Ali's personal AI assistant! I'm here to help you navigate his portfolio and answer any questions you have.";
+        } else if (msg.includes('skill') || msg.includes('know') || msg.includes('techno')) {
             return "Ali is a Full Stack Developer skilled in React.js, Node.js, Python (Django/Flask), and modern CSS like Tailwind. He's also great at UI/UX design!";
         } else if (msg.includes('project') || msg.includes('work')) {
             return "Ali has worked on several featured projects like this 3D Portfolio, E-commerce platforms, and management systems. You can explore them in the Projects section!";
         } else if (msg.includes('cv') || msg.includes('resume')) {
             return "You can view and download Ali's professional CV in the Resume section right above the projects!";
         } else if (msg.includes('hi') || msg.includes('hello') || msg.includes('hey')) {
-            return "Hey there! How can I help you today? I can tell you about Ali's skills, projects, or how to contact him.";
+            return "Hey there! I am Aura. How can I help you today? I can tell you about Ali's skills, projects, or how to contact him.";
         } else {
             return "That's interesting! I'm still learning, but I can tell you all about Ali's professional background, skills, and projects. Try asking about his 'skills'!";
         }
