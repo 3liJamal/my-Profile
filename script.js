@@ -60,11 +60,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.classList.remove('active');
             }
 
-            // Smooth opacity/blur based on depth
-            const opacity = Math.max(0.2, 1 - (diff / 180));
+            // Smooth opacity based on distance
+            const opacity = Math.max(0.4, 1 - (diff / 150));
             card.style.opacity = opacity;
-            const blur = Math.min(5, diff / 20);
-            card.style.filter = diff > 40 ? `blur(${blur}px) grayscale(0.5)` : 'none';
+            card.style.filter = 'none'; // Keep background projects sharp and visible
         });
 
         requestAnimationFrame(updateCarousel);
