@@ -205,4 +205,72 @@ document.addEventListener('DOMContentLoaded', () => {
             contactForm.reset();
         });
     }
+    // AI Chat Handler
+    const chatToggle = document.getElementById('chatToggle');
+    const chatWindow = document.getElementById('chatWindow');
+    const closeChat = document.getElementById('closeChat');
+    const chatFormInput = document.getElementById('chatFormInput');
+    const chatMessages = document.getElementById('chatMessages');
+    const userInput = document.getElementById('userInput');
+
+    if (chatToggle) {
+        chatToggle.addEventListener('click', () => {
+            chatWindow.classList.add('active');
+            chatToggle.style.display = 'none';
+        });
+    }
+
+    if (closeChat) {
+        closeChat.addEventListener('click', () => {
+            chatWindow.classList.remove('active');
+            chatToggle.style.display = 'flex';
+        });
+    }
+
+    if (chatFormInput) {
+        chatFormInput.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const message = userInput.value.trim();
+            if (message) {
+                addMessage(message, 'user');
+                userInput.value = '';
+
+                // Simulate AI Response
+                setTimeout(() => {
+                    const response = getAIResponse(message);
+                    addMessage(response, 'ai');
+                }, 1000);
+            }
+        });
+    }
+
+    function addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}-message`;
+
+        const avatar = sender === 'ai' ? '<div class="message-avatar"><i class="fas fa-robot"></i></div>' : '';
+
+        messageDiv.innerHTML = `
+            ${avatar}
+            <div class="message-content">${text}</div>
+        `;
+
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function getAIResponse(input) {
+        const msg = input.toLowerCase();
+        if (msg.includes('skill') || msg.includes('know') || msg.includes('techno')) {
+            return "Ali is a Full Stack Developer skilled in React.js, Node.js, Python (Django/Flask), and modern CSS like Tailwind. He's also great at UI/UX design!";
+        } else if (msg.includes('project') || msg.includes('work')) {
+            return "Ali has worked on several featured projects like this 3D Portfolio, E-commerce platforms, and management systems. You can explore them in the Projects section!";
+        } else if (msg.includes('cv') || msg.includes('resume')) {
+            return "You can view and download Ali's professional CV in the Resume section right above the projects!";
+        } else if (msg.includes('hi') || msg.includes('hello') || msg.includes('hey')) {
+            return "Hey there! How can I help you today? I can tell you about Ali's skills, projects, or how to contact him.";
+        } else {
+            return "That's interesting! I'm still learning, but I can tell you all about Ali's professional background, skills, and projects. Try asking about his 'skills'!";
+        }
+    }
 });

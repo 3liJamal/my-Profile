@@ -427,6 +427,47 @@
     </footer>
     </div>
 
+    <!-- AI Chat Assistant -->
+    <div class="ai-chat-wrapper">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="assistant-info">
+                    <div class="assistant-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="assistant-text">
+                        <span class="assistant-name">Levi</span>
+                        <span class="assistant-status">AI assistant about Ali's portfolio</span>
+                    </div>
+                </div>
+                <button class="close-chat" id="closeChat"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="message ai-message">
+                    <div class="message-avatar"><i class="fas fa-robot"></i></div>
+                    <div class="message-content">
+                        Hey there 👋<br>
+                        I'm <strong>Levi</strong>, Ali's AI assistant.<br>
+                        Ask me anything about his skills, projects, experience, or how he can help you.
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <form id="chatFormInput">
+                    <input type="text" id="userInput" placeholder="Ask Levi anything about Ali..." autocomplete="off">
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+
+        <button class="chat-toggle" id="chatToggle">
+            <div class="toggle-avatar"><i class="fas fa-robot"></i></div>
+            <span>Chat with <strong>Levi</strong></span>
+        </button>
+    </div>
+
     <!-- Scripts -->
     <script src="script.js"></script>
 </body>
