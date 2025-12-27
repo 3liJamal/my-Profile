@@ -1865,10 +1865,10 @@ footer {
     max-width: 100%;
     margin: 0;
     display: grid;
-    gap: 12rem;
-    /* Ultra wide gap */
-    padding: 0 150px 100px;
-    /* Maximum side padding */
+    gap: 8rem;
+    /* Slightly reduced gap to keep content focused in center */
+    padding: 0 250px 100px;
+    /* Extreme side padding for narrow center column */
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -2002,8 +2002,8 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 150px;
-    /* Matched ultra side padding */
+    padding: 0 250px;
+    /* Matched extreme side padding */
     color: var(--text-secondary);
     font-size: 0.9rem;
 }
@@ -2033,6 +2033,16 @@ footer {
 
     100% {
         transform: scale(1);
+    }
+}
+
+@media (max-width: 1600px) {
+
+    .footer-top,
+    .footer-bottom {
+        padding-left: 150px;
+        padding-right: 150px;
+        gap: 8rem;
     }
 }
 
