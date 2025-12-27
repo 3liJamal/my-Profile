@@ -321,4 +321,22 @@ document.addEventListener('DOMContentLoaded', () => {
             return "That's interesting! I'm still learning, but I can tell you all about Ali's professional background, skills, and projects. Try asking about his 'skills'!";
         }
     }
+
+    // --- Tech Galaxy Core Interaction ---
+    const galaxyCore = document.querySelector('.galaxy-core');
+    const galaxyContainer = document.querySelector('.galaxy-container');
+
+    if (galaxyCore && galaxyContainer) {
+        galaxyCore.addEventListener('click', () => {
+            galaxyContainer.classList.toggle('super-spin');
+            galaxyCore.classList.toggle('active');
+
+            // Create a small feedback effect
+            if (galaxyContainer.classList.contains('super-spin')) {
+                console.log("Super Spin Mode: Activated 🚀");
+            } else {
+                console.log("Super Spin Mode: Deactivated 🌌");
+            }
+        });
+    }
 });

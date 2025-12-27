@@ -2389,6 +2389,50 @@ footer {
     }
 }
 
+/* --- Interactive Super Spin Mode --- */
+.galaxy-container {
+    transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    perspective: 1000px;
+}
+
+.galaxy-container.super-spin {
+    transform: rotateX(30deg) rotateY(-10deg) scale(0.9);
+}
+
+.galaxy-container.super-spin .orbit-1 {
+    animation-duration: 5s;
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+.galaxy-container.super-spin .orbit-2 {
+    animation-duration: 8s;
+    border-color: rgba(236, 72, 153, 0.3);
+}
+
+.galaxy-container.super-spin .orbit-3 {
+    animation-duration: 12s;
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.galaxy-container.super-spin .galaxy-item {
+    animation-duration: inherit !important;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.galaxy-core {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.galaxy-core:active {
+    transform: scale(0.9);
+}
+
+.galaxy-core.active {
+    background: var(--primary-color);
+    box-shadow: 0 0 80px var(--primary-color);
+}
+
 /* Positioning Icons on Orbits */
 .orbit-1 .galaxy-item:nth-child(1) {
     top: 0;
