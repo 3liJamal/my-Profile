@@ -1862,13 +1862,13 @@ footer {
 }
 
 .footer-top {
-    max-width: 100%;
-    margin: 0;
+    max-width: 1300px;
+    margin: 0 auto;
     display: grid;
+    grid-template-columns: 1.5fr 1fr 1.5fr;
     gap: 8rem;
-    /* Slightly reduced gap to keep content focused in center */
-    padding: 0 250px 100px;
-    /* Extreme side padding for narrow center column */
+    /* Increased spread */
+    padding: 0 40px 80px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -1997,13 +1997,12 @@ footer {
 }
 
 .footer-bottom {
-    max-width: 100%;
-    margin: 40px 0 0;
+    max-width: 1300px;
+    margin: 30px auto 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 250px;
-    /* Matched extreme side padding */
+    padding: 0 40px;
     color: var(--text-secondary);
     font-size: 0.9rem;
 }
@@ -2036,40 +2035,15 @@ footer {
     }
 }
 
-@media (max-width: 1600px) {
-
-    .footer-top,
-    .footer-bottom {
-        padding-left: 150px;
-        padding-right: 150px;
-        gap: 8rem;
-    }
-}
-
-@media (max-width: 1400px) {
-
-    .footer-top,
-    .footer-bottom {
-        padding-left: 80px;
-        padding-right: 80px;
-        gap: 6rem;
-    }
-}
-
-@media (max-width: 1200px) {
-
-    .footer-top,
-    .footer-bottom {
-        padding-left: 40px;
-        padding-right: 40px;
-        gap: 3rem;
-    }
-}
-
 @media (max-width: 968px) {
     .footer-top {
         grid-template-columns: 1fr 1fr;
         gap: 3rem;
+        padding: 0 40px 60px;
+    }
+
+    .footer-bottom {
+        padding: 0 40px;
     }
 
     .footer-brand {
