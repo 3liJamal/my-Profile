@@ -1816,11 +1816,10 @@ footer {
 
 /* Main Footer Styles */
 .main-footer {
-    background: rgba(10, 15, 30, 0.95);
+    background: var(--bg-dark);
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     padding: 80px 0 30px;
     margin-top: 100px;
-    backdrop-filter: blur(20px);
 }
 
 .footer-top {
