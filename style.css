@@ -2257,6 +2257,8 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    pointer-events: none;
+    /* Prevent blocking inner orbits */
 }
 
 .orbit-1 {
@@ -2290,6 +2292,8 @@ footer {
     padding: 12px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     text-decoration: none;
+    pointer-events: auto;
+    /* Re-enable clicks for items */
     /* Reverse rotation to keep icon upright */
     animation: keepUpright var(--duration) linear infinite var(--direction);
 }
