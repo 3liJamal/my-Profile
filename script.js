@@ -235,11 +235,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 addMessage(message, 'user');
                 userInput.value = '';
 
-                // Simulate AI Response
+                showTypingIndicator();
+
                 setTimeout(() => {
+                    removeTypingIndicator();
                     const response = getAIResponse(message);
                     addMessage(response, 'ai');
-                }, 1000);
+                }, 1500);
             }
         });
     }
@@ -248,7 +250,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${sender}-message`;
 
-        const avatar = sender === 'ai' ? '<div class="message-avatar"><i class="fas fa-robot"></i></div>' : '';
+        const avatarImg = 'https://images.unsplash.com/photo-1675271591211-126ad94e495d?auto=format&fit=crop&q=80&w=100&h=100';
+        const avatar = sender === 'ai' ? `<div class="message-avatar"><img src="${avatarImg}" alt="Aura"></div>` : '';
 
         messageDiv.innerHTML = `
             ${avatar}
@@ -259,18 +262,61 @@ document.addEventListener('DOMContentLoaded', () => {
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
+    function showTypingIndicator() {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'message ai-message typing-indicator';
+        typingDiv.id = 'typingIndicator';
+        const avatarImg = 'https://images.unsplash.com/photo-1675271591211-126ad94e495d?auto=format&fit=crop&q=80&w=100&h=100';
+        typingDiv.innerHTML = `
+            <div class="message-avatar"><img src="${avatarImg}" alt="Aura"></div>
+            <div class="message-content">
+                <div class="typing-dots">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        `;
+        chatMessages.appendChild(typingDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+        const indicator = document.getElementById('typingIndicator');
+        if (indicator) indicator.remove();
+    }
+
     function getAIResponse(input) {
         const msg = input.toLowerCase();
+
+        // --- ARABIC RESPONSES ---
+        if (msg.match(/[أ-ي]/)) {
+            if (msg.includes('مين') || msg.includes('اسم') || msg.includes('من انت') || msg.includes('مين انت')) {
+                return "أنا Aura، المساعد الذكي الخاص بعلي! أنا هنا لمساعدتك في التعرف على مهاراته ومشاريعه.";
+            } else if (msg.includes('مهار') || msg.includes('شو بشتغل') || msg.includes('اللغات') || msg.includes('تقنيات')) {
+                return "علي مطور Full Stack محترف، يتقن React.js, Node.js, Python (Django), وتصميم واجهات UI/UX عصرية.";
+            } else if (msg.includes('مشروع') || msg.includes('اعمال') || msg.includes('شغل')) {
+                return "قام علي بالعمل على العديد من المشاريع المميزة مثل منصات التجارة الإلكترونية وأنظمة الإدارة. يمكنك رؤيتها في قسم المشاريع!";
+            } else if (msg.includes('سيرة') || msg.includes('cv') || msg.includes('سي في') || msg.includes('رزومي')) {
+                return "يمكنك عرض وتحميل السيرة الذاتية لعلي من قسم Resume الموجود في منتصف الصفحة.";
+            } else if (msg.includes('هلا') || msg.includes('مرحبا') || msg.includes('كيفك') || msg.includes('سلام') || msg.includes('هاي')) {
+                return "أهلاً بك! أنا Aura. كيف يمكنني مساعدتك اليوم؟ يمكنني إخبارك عن مهارات علي، مشاريع، أو كيف تتواصل معه.";
+            } else {
+                return "هذا مدهش! أنا لا أزال أتعلم، ولكن يمكنني إخبارك كل شيء عن مهارات علي ومشاريعه. جرب سؤالي عن 'مهاراته'!";
+            }
+        }
+
+        // --- ENGLISH RESPONSES ---
         if (msg.includes('name') || msg.includes('who are you')) {
             return "I am Aura, Ali's personal AI assistant! I'm here to help you navigate his portfolio and answer any questions you have.";
-        } else if (msg.includes('skill') || msg.includes('know') || msg.includes('techno')) {
-            return "Ali is a Full Stack Developer skilled in React.js, Node.js, Python (Django/Flask), and modern CSS like Tailwind. He's also great at UI/UX design!";
-        } else if (msg.includes('project') || msg.includes('work')) {
-            return "Ali has worked on several featured projects like this 3D Portfolio, E-commerce platforms, and management systems. You can explore them in the Projects section!";
+        } else if (msg.includes('skill') || msg.includes('know') || msg.includes('techno') || msg.includes('language')) {
+            return "Ali is a Full Stack Developer skilled in React.js, Node.js, Python (Django/Flask), and modern CSS. He's also great at UI/UX design!";
+        } else if (msg.includes('project') || msg.includes('work') || msg.includes('portfolio')) {
+            return "Ali has worked on several featured projects like E-commerce platforms, and management systems. You can explore them in the Projects section!";
         } else if (msg.includes('cv') || msg.includes('resume')) {
             return "You can view and download Ali's professional CV in the Resume section right above the projects!";
-        } else if (msg.includes('hi') || msg.includes('hello') || msg.includes('hey')) {
+        } else if (msg.includes('hi') || msg.includes('hello') || msg.includes('hey') || msg.includes('hola')) {
             return "Hey there! I am Aura. How can I help you today? I can tell you about Ali's skills, projects, or how to contact him.";
+        } else if (msg.includes('how are you')) {
+            return "I'm doing great! Just hanging out here in Ali's portfolio. How can I assist you?";
         } else {
             return "That's interesting! I'm still learning, but I can tell you all about Ali's professional background, skills, and projects. Try asking about his 'skills'!";
         }
