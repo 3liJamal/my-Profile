@@ -1452,8 +1452,8 @@ footer {
 /* AI Chat Assistant Styles */
 .ai-chat-wrapper {
     position: fixed;
-    bottom: 30px;
-    left: 30px;
+    bottom: 40px;
+    left: 40px;
     /* Positioned like in the image */
     z-index: 2000;
 }
@@ -1855,8 +1855,8 @@ footer {
 .main-footer {
     background: var(--bg-dark);
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 120px 0 40px;
-    /* Increased vertical space */
+    padding: 120px 0 120px;
+    /* Increased bottom space for AI bot */
     margin-top: 150px;
     /* More distance from previous section */
 }
@@ -2056,7 +2056,7 @@ footer {
 
 @media (max-width: 600px) {
     .main-footer {
-        padding: 80px 0 30px;
+        padding: 80px 0 100px;
     }
 
     .footer-top {
