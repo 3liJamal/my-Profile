@@ -1876,7 +1876,8 @@ footer {
     font-size: 1.8rem;
     font-weight: 800;
     color: white;
-    display: flex;
+    display: inline-flex;
+    /* Changed to inline-flex to match content width */
     align-items: center;
     gap: 12px;
     margin-bottom: 2.5rem;
@@ -1890,7 +1891,8 @@ footer {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 60px;
+    width: 100%;
+    /* Spans full width of the words */
     height: 4px;
     background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
     border-radius: 2px;
@@ -1940,6 +1942,8 @@ footer {
     /* Huge margin for titles */
     position: relative;
     padding-bottom: 15px;
+    display: inline-block;
+    /* Changed to inline-block to match text width */
 }
 
 .footer-nav h4::after,
@@ -1949,8 +1953,8 @@ footer {
     bottom: -5px;
     /* Positioned slightly lower */
     left: 0;
-    width: 60px;
-    /* Longer line */
+    width: 100%;
+    /* Spans full width of the words */
     height: 4px;
     /* Thicker line */
     background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
