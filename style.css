@@ -424,7 +424,7 @@ header {
 
 .card-top-info h3 {
     font-size: 2.2rem;
-    color: white;
+    color: var(--primary-color);
     margin-bottom: 5px;
 }
 
@@ -1055,7 +1055,7 @@ footer {
     font-size: 1.8rem;
     /* Bigger logo */
     font-weight: 800;
-    color: white;
+    color: var(--primary-color);
     display: flex;
     align-items: center;
     gap: 12px;
@@ -1875,7 +1875,7 @@ footer {
 .footer-logo {
     font-size: 1.8rem;
     font-weight: 800;
-    color: white;
+    color: var(--primary-color);
     display: inline-flex;
     /* Changed to inline-flex to match content width */
     align-items: center;
