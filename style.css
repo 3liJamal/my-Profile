@@ -1865,11 +1865,10 @@ footer {
     max-width: 100%;
     margin: 0;
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1.5fr;
-    gap: 6rem;
-    /* Increased gap between columns */
-    padding: 0 100px 80px;
-    /* Much more side padding for premium feel */
+    gap: 12rem;
+    /* Ultra wide gap */
+    padding: 0 150px 100px;
+    /* Maximum side padding */
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -1892,10 +1891,11 @@ footer {
 }
 
 .footer-description {
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 2rem;
-    font-size: 1rem;
+    line-height: 1.8;
+    /* Increased line height for better readability */
+    margin-bottom: 3rem;
+    /* More space below description */
+    font-size: 1.05rem;
 }
 
 .footer-social-links {
@@ -1921,11 +1921,11 @@ footer {
 
 .footer-nav h4,
 .footer-cta h4 {
-    color: white;
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
+    font-size: 1.3rem;
+    margin-bottom: 3rem;
+    /* Huge margin for titles */
     position: relative;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
 }
 
 .footer-nav h4::after,
@@ -1959,7 +1959,9 @@ footer {
 
 .footer-cta p {
     color: var(--text-secondary);
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
+    /* More space for CTA text */
+    line-height: 1.7;
 }
 
 .footer-btn-group {
@@ -2000,8 +2002,8 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 100px;
-    /* Matched side padding */
+    padding: 0 150px;
+    /* Matched ultra side padding */
     color: var(--text-secondary);
     font-size: 0.9rem;
 }
@@ -2034,12 +2036,23 @@ footer {
     }
 }
 
+@media (max-width: 1400px) {
+
+    .footer-top,
+    .footer-bottom {
+        padding-left: 80px;
+        padding-right: 80px;
+        gap: 6rem;
+    }
+}
+
 @media (max-width: 1200px) {
 
     .footer-top,
     .footer-bottom {
         padding-left: 40px;
         padding-right: 40px;
+        gap: 3rem;
     }
 }
 
