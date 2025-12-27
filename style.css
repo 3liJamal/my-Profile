@@ -1932,11 +1932,15 @@ footer {
 .footer-cta h4::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -5px;
+    /* Positioned slightly lower */
     left: 0;
-    width: 30px;
-    height: 2px;
-    background: var(--primary-color);
+    width: 60px;
+    /* Longer line */
+    height: 4px;
+    /* Thicker line */
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    border-radius: 2px;
 }
 
 .footer-nav ul {
