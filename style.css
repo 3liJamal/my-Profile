@@ -363,6 +363,28 @@ h1 {
     border-color: rgba(99, 102, 241, 0.3);
 }
 
+/* Project Images */
+.project-content .project-img-container {
+    width: 100%;
+    height: 180px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.project-content .project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.project-card:hover .project-img {
+    transform: scale(1.1);
+    filter: brightness(1.1);
+}
+
 .project-content {
     padding: 1.5rem;
 }
