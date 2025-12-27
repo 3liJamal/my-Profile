@@ -2317,6 +2317,12 @@ footer {
     z-index: 20;
 }
 
+/* Specific glow for Canva to make it pop */
+.galaxy-item[data-name="Canva"]:hover {
+    box-shadow: 0 0 25px rgba(0, 196, 204, 0.6);
+    border-color: #00c4cc;
+}
+
 .galaxy-item img {
     width: 100%;
     height: 100%;
