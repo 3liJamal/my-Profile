@@ -305,7 +305,7 @@ header {
 }
 
 .hero-main-title .highlight {
-    display: block;
+    display: inline-block;
     background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
     -webkit-background-clip: text;
     background-clip: text;
@@ -572,21 +572,20 @@ header {
 
 /* Projects Section */
 .section-title {
+    display: block;
+    width: fit-content;
+    margin: 0 auto 6rem;
     text-align: center;
     font-size: 2.2rem;
-    margin-bottom: 6rem;
-    /* Lifted much higher from photos */
     position: relative;
-    display: inline-block;
 }
 
 .section-title::after {
     content: '';
     position: absolute;
-    bottom: -6px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
     height: 4px;
     background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
     border-radius: 2px;
@@ -1052,26 +1051,103 @@ footer {
 }
 
 .nav-logo {
-    font-size: 1.8rem;
-    /* Bigger logo */
-    font-weight: 800;
-    color: var(--primary-color);
     display: flex;
     align-items: center;
-    gap: 12px;
-    letter-spacing: -0.5px;
+    gap: 15px;
+    cursor: pointer;
+    text-decoration: none;
 }
 
-.nav-logo i {
-    color: var(--primary-color);
-    background: rgba(99, 102, 241, 0.1);
-    padding: 10px;
-    border-radius: 12px;
-    font-size: 1.4rem;
+.logo-modern-symbol {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.nav-logo span {
-    color: var(--primary-color);
+.logo-hex {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-color), #22d3ee);
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: var(--transition);
+}
+
+.logo-a-mark {
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: 1.6rem;
+    letter-spacing: -1px;
+    transform: translateY(-1px);
+}
+
+.logo-glow {
+    position: absolute;
+    inset: -5px;
+    background: linear-gradient(135deg, var(--primary-color), #22d3ee);
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    opacity: 0.4;
+    filter: blur(8px);
+    z-index: 1;
+    transition: var(--transition);
+}
+
+.logo-name-wrapper {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #22d3ee;
+    /* Unified color: Ali is Blue */
+}
+
+.logo-name-wrapper span {
+    color: #22d3ee;
+    /* Unified color: Aljamal is now also Blue */
+    font-weight: 900;
+}
+
+.nav-logo:hover .logo-hex {
+    transform: rotate(10deg) scale(1.1);
+    background: linear-gradient(135deg, #22d3ee, var(--primary-color));
+}
+
+.nav-logo:hover .logo-glow {
+    opacity: 0.7;
+    transform: rotate(10deg) scale(1.2);
+}
+
+.title-icon {
+    display: inline-block;
+    animation: waveEmoji 2.5s infinite;
+    margin-left: 10px;
+    font-size: 2.5rem;
+}
+
+@keyframes waveEmoji {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(20deg);
+    }
+
+    75% {
+        transform: rotate(-10deg);
+    }
 }
 
 .nav-links {
@@ -1726,6 +1802,9 @@ footer {
 }
 
 .tech-titles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
     margin-bottom: 70px;
 }
@@ -1744,16 +1823,25 @@ footer {
     font-size: 2.8rem;
     color: white;
     font-weight: 800;
-    margin: 15px 0;
+    margin: 15px 0 25px;
+    position: relative;
+    display: inline-block;
+}
+
+.tech-main-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
 }
 
 .tech-underline {
-    width: 80px;
-    height: 4px;
-    background: var(--primary-color);
-    margin: 0 auto;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+    display: none;
 }
 
 .marquee-container {
@@ -1903,7 +1991,7 @@ footer {
 }
 
 .footer-logo span {
-    color: var(--primary-color);
+    color: inherit;
 }
 
 .footer-description {

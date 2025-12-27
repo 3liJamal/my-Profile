@@ -1,5 +1,9 @@
-// Personal Portfolio Interaction Scripts
 document.addEventListener('DOMContentLoaded', () => {
+    // Force scroll to top on reload
+    window.scrollTo(0, 0);
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
 
     // Generate Twinkling Stars
     const starsContainer = document.getElementById('stars');
@@ -285,40 +289,52 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getAIResponse(input) {
-        const msg = input.toLowerCase();
+        const msg = input.toLowerCase().trim();
 
         // --- ARABIC RESPONSES ---
         if (msg.match(/[أ-ي]/)) {
-            if (msg.includes('مين') || msg.includes('اسم') || msg.includes('من انت') || msg.includes('مين انت')) {
-                return "أنا Aura، المساعد الذكي الخاص بعلي! أنا هنا لمساعدتك في التعرف على مهاراته ومشاريعه.";
-            } else if (msg.includes('مهار') || msg.includes('شو بشتغل') || msg.includes('اللغات') || msg.includes('تقنيات')) {
-                return "علي مطور Full Stack محترف، يتقن React.js, Node.js, Python (Django), وتصميم واجهات UI/UX عصرية.";
-            } else if (msg.includes('مشروع') || msg.includes('اعمال') || msg.includes('شغل')) {
-                return "قام علي بالعمل على العديد من المشاريع المميزة مثل منصات التجارة الإلكترونية وأنظمة الإدارة. يمكنك رؤيتها في قسم المشاريع!";
-            } else if (msg.includes('سيرة') || msg.includes('cv') || msg.includes('سي في') || msg.includes('رزومي')) {
-                return "يمكنك عرض وتحميل السيرة الذاتية لعلي من قسم Resume الموجود في منتصف الصفحة.";
-            } else if (msg.includes('هلا') || msg.includes('مرحبا') || msg.includes('كيفك') || msg.includes('سلام') || msg.includes('هاي')) {
-                return "أهلاً بك! أنا Aura. كيف يمكنني مساعدتك اليوم؟ يمكنني إخبارك عن مهارات علي، مشاريع، أو كيف تتواصل معه.";
+            if (msg.includes('مين') || msg.includes('اسم') || msg.includes('من انت') || msg.includes('من هو') || msg.includes('مين انت')) {
+                return "أنا Aura، المساعد الذكي الخاص بعلي! أنا هنا لمساعدتك في التعرف على مهاراته ومشاريعه الاستثنائية.";
+            } else if (msg.includes('مهار') || msg.includes('شو بشتغل') || msg.includes('شو بيعرف') || msg.includes('اللغات') || msg.includes('تقنيات')) {
+                return "علي مطور Full Stack محترف ومبدع، يتقن React.js, Node.js, Python (Django), وتصميم واجهات UI/UX عصرية ومريحة للمستخدم.";
+            } else if (msg.includes('مشروع') || msg.includes('اعمال') || msg.includes('شغل') || msg.includes('مشاريع')) {
+                return "قام علي بالعمل على العديد من المشاريع المميزة مثل منصات التجارة الإلكترونية وأنظمة الإدارة المعقدة. يمكنك رؤية تفاصيلها في قسم المشاريع في منتصف الصفحة!";
+            } else if (msg.includes('سيرة') || msg.includes('cv') || msg.includes('سي في') || msg.includes('رزومي') || msg.includes('الملف الشخصي')) {
+                return "يمكنك عرض وتحميل السيرة الذاتية (CV) الخاصة بعلي من قسم Resume الموجود في الموقع بضغطة زر واحدة.";
+            } else if (msg.includes('تواص') || msg.includes('رقم') || msg.includes('ايميل') || msg.includes('بريد') || msg.includes('واتساب') || msg.includes('تواصل')) {
+                return "يمكنك التواصل مع علي مباشرة عبر الواتساب، أو إرسال رسالة بريد إلكتروني، أو حتى استخدام نموذج التواصل أسفل الصفحة. هو متوفر دائماً للفرص الجديدة!";
+            } else if (msg.includes('موقع') || msg.includes('مكان') || msg.includes('وين') || msg.includes('اي بلد')) {
+                return "علي يسكن في مدينة جنين، فلسطين 🇵🇸. وهو منفتح للعمل عن بعد مع شركات من جميع أنحاء العالم.";
+            } else if (msg.includes('هلا') || msg.includes('مرحبا') || msg.includes('كيفك') || msg.includes('سلام') || msg.includes('هاي') || msg.includes('صباح') || msg.includes('مساء')) {
+                return "أهلاً بك! أنا Aura، مساعدك الذكي. كيف يمكنني مساعدتك اليوم؟ يمكنني إخبارك عن مهارات علي، أو مشاريعه، أو كيف تتواصل معه للعمل معاً.";
+            } else if (msg.includes('شكرا') || msg.includes('تسلم') || msg.includes('مشكور')) {
+                return "على الرحب والسعة! يسعدني دائماً تقديم المساعدة. هل هناك شيء آخر تود معرفته عن علي؟";
             } else {
-                return "هذا مدهش! أنا لا أزال أتعلم، ولكن يمكنني إخبارك كل شيء عن مهارات علي ومشاريعه. جرب سؤالي عن 'مهاراته'!";
+                return "سؤال جميل! أنا لا أزال أتعلم، ولكن يمكنني إخبارك بكل إعجاب عن مهارات علي، مشاريعه، خبراته، أو طرق التواصل معه. جرب سؤالي عن 'مهاراته' أو 'مشاريعه'!";
             }
         }
 
         // --- ENGLISH RESPONSES ---
-        if (msg.includes('name') || msg.includes('who are you')) {
-            return "I am Aura, Ali's personal AI assistant! I'm here to help you navigate his portfolio and answer any questions you have.";
-        } else if (msg.includes('skill') || msg.includes('know') || msg.includes('techno') || msg.includes('language')) {
-            return "Ali is a Full Stack Developer skilled in React.js, Node.js, Python (Django/Flask), and modern CSS. He's also great at UI/UX design!";
-        } else if (msg.includes('project') || msg.includes('work') || msg.includes('portfolio')) {
-            return "Ali has worked on several featured projects like E-commerce platforms, and management systems. You can explore them in the Projects section!";
-        } else if (msg.includes('cv') || msg.includes('resume')) {
-            return "You can view and download Ali's professional CV in the Resume section right above the projects!";
-        } else if (msg.includes('hi') || msg.includes('hello') || msg.includes('hey') || msg.includes('hola')) {
-            return "Hey there! I am Aura. How can I help you today? I can tell you about Ali's skills, projects, or how to contact him.";
+        if (msg.includes('name') || msg.includes('who are you') || msg.includes('who is ali')) {
+            return "I am Aura, Ali's personal AI assistant! I'm here to guide you through his portfolio and showcase his expertise in web development.";
+        } else if (msg.includes('skill') || msg.includes('know') || msg.includes('techno') || msg.includes('language') || msg.includes('stack')) {
+            return "Ali is a talented Full Stack Developer skilled in React.js, Node.js, Python (Django/Flask), and modern CSS frameworks like Tailwind. He also has a great eye for UI/UX design!";
+        } else if (msg.includes('project') || msg.includes('work') || msg.includes('portfolio') || msg.includes('github')) {
+            return "Ali has built impressive projects ranging from E-commerce platforms to complex management systems. You can find his GitHub link and explore his code in the Projects section!";
+        } else if (msg.includes('cv') || msg.includes('resume') || msg.includes('download')) {
+            return "You can view and download Ali's professional CV in the dedicated 'Resume' section of this page. It's kept up to date for 2025!";
+        } else if (msg.includes('contact') || msg.includes('hire') || msg.includes('email') || msg.includes('whatsapp') || msg.includes('phone')) {
+            return "Getting in touch with Ali is easy! You can use the contact form at the bottom, send an email, or message him directly via WhatsApp. He's currently available for new opportunities.";
+        } else if (msg.includes('location') || msg.includes('where') || msg.includes('live')) {
+            return "Ali is based in Jenin, Palestine 🇵🇸, and is fully equipped for remote work and global collaborations.";
+        } else if (msg.includes('hi') || msg.includes('hello') || msg.includes('hey') || msg.includes('hola') || msg.includes('morning') || msg.includes('evening')) {
+            return "Hey there! I am Aura. How can I brighten your day? I can tell you all about Ali's technical skills, professional projects, or contact details.";
         } else if (msg.includes('how are you')) {
-            return "I'm doing great! Just hanging out here in Ali's portfolio. How can I assist you?";
+            return "I'm doing fantastic! Just helping people explore Ali's amazing work. How can I assist you today?";
+        } else if (msg.includes('thank') || msg.includes('thanks') || msg.includes('great')) {
+            return "You're very welcome! I'm glad I could help. Is there anything else you'd like to explore about Ali's portfolio?";
         } else {
-            return "That's interesting! I'm still learning, but I can tell you all about Ali's professional background, skills, and projects. Try asking about his 'skills'!";
+            return "That's a great input! While I'm still evolving, I can definitely provide info on Ali's skills, projects, resume, and how to reach him. Feel free to ask about his 'tech stack'!";
         }
     }
 
