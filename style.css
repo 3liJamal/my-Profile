@@ -519,18 +519,30 @@ footer {
     max-width: 1000px;
     margin: 0 auto;
     width: 100%;
+    text-align: center;
+    /* Center the title and content */
 }
 
 .cv-showcase-card {
-    background: var(--bg-card);
-    border: var(--glass-border);
-    border-radius: 30px;
-    padding: 3rem;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    transition: var(--transition);
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 40px;
+    padding: 4rem;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.cv-showcase-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-color);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6),
+        0 0 20px rgba(99, 102, 241, 0.2);
 }
 
 .cv-showcase-card::before {
@@ -546,8 +558,10 @@ footer {
 
 .cv-card-inner {
     display: flex;
+    flex-direction: column;
+    /* Vertical layout for centering */
     align-items: center;
-    gap: 4rem;
+    gap: 3rem;
     position: relative;
     z-index: 1;
 }
@@ -611,31 +625,39 @@ footer {
 
 .cv-badges {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    justify-content: center;
+    /* Center badges */
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
 }
 
 .badge-item {
-    font-size: 0.85rem;
-    color: #94a3b8;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 5px 12px;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    background: rgba(99, 102, 241, 0.1);
+    padding: 6px 16px;
     border-radius: 50px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .cv-btn-group {
     display: flex;
-    gap: 1.5rem;
+    justify-content: center;
+    /* Center buttons */
+    gap: 2rem;
+    flex-wrap: wrap;
 }
 
 .cv-primary-btn,
 .cv-secondary-btn {
     text-decoration: none;
-    padding: 12px 28px;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 1rem;
+    padding: 14px 32px;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 1.05rem;
     transition: var(--transition);
     display: flex;
     align-items: center;
