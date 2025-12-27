@@ -5,15 +5,13 @@ html {
 }
 
 :root {
-    --primary-color: #ff6b00;
-    /* Orange accent */
-    --secondary-color: #ff9d00;
-    --bg-dark: #121212;
-    /* Darker background like the image */
+    --primary-color: #6366f1;
+    --secondary-color: #a855f7;
+    --bg-dark: #0f172a;
     --bg-card: rgba(30, 41, 59, 0.5);
     --text-primary: #f8fafc;
-    --text-secondary: #cbd5e1;
-    --gradient-bg: linear-gradient(135deg, #121212 0%, #1e1e1e 100%);
+    --text-secondary: #94a3b8;
+    --gradient-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     --glass-border: 1px solid rgba(255, 255, 255, 0.08);
     --shadow-lg: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -764,12 +762,11 @@ footer {
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: rgba(18, 18, 18, 0.9);
+    background: rgba(15, 23, 42, 0.9);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     padding: 1.2rem 0;
-    /* More padding */
 }
 
 .nav-container {
@@ -795,7 +792,7 @@ footer {
 
 .nav-logo i {
     color: var(--primary-color);
-    background: rgba(255, 107, 0, 0.1);
+    background: rgba(99, 102, 241, 0.1);
     padding: 10px;
     border-radius: 12px;
     font-size: 1.4rem;
@@ -869,7 +866,7 @@ footer {
     background: transparent;
     color: var(--primary-color);
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
 }
 
 .nav-btn-mobile {
@@ -930,7 +927,7 @@ footer {
         left: -100%;
         width: 100%;
         height: calc(100vh - 80px);
-        background: rgba(18, 18, 18, 0.98);
+        background: rgba(15, 23, 42, 0.98);
         backdrop-filter: blur(20px);
         flex-direction: column;
         justify-content: center;
