@@ -340,13 +340,34 @@ h1 {
 }
 
 .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex;
+    overflow-x: auto;
     gap: 2rem;
+    padding: 1rem 1rem 2.5rem;
     margin-bottom: 4rem;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) transparent;
+}
+
+/* Custom Scrollbar for Webkit */
+.projects-grid::-webkit-scrollbar {
+    height: 8px;
+}
+
+.projects-grid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.projects-grid::-webkit-scrollbar-thumb {
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    border-radius: 10px;
 }
 
 .project-card {
+    flex: 0 0 350px;
+    /* Fixed width for carousel items */
     background: var(--bg-card);
     border: var(--glass-border);
     border-radius: 16px;
@@ -354,7 +375,35 @@ h1 {
     transition: var(--transition);
     cursor: pointer;
     position: relative;
+    scroll-snap-align: start;
+}
 
+@media (max-width: 768px) {
+    .project-card {
+        flex: 0 0 85vw;
+        /* Almost full width on mobile */
+    }
+}
+
+.featured-project {
+    border: 2px solid var(--primary-color) !important;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+}
+
+.featured-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .project-card:hover {
