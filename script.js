@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalCards = cards.length;
     const angleStep = 360 / totalCards;
 
-    let radius = window.innerWidth < 768 ? 320 : 550;
+    let radius = window.innerWidth < 768 ? 400 : 700;
     let targetRotation = 0;
     let currentRotation = 0;
     let isDragging = false;
@@ -132,8 +132,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial setup
     requestAnimationFrame(updateCarousel);
 
+    // Dynamic resize
     window.addEventListener('resize', () => {
-        radius = window.innerWidth < 768 ? 320 : 550;
+        radius = window.innerWidth < 768 ? 400 : 700;
     });
 
     // Typing Effect for Role

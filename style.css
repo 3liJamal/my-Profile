@@ -353,8 +353,8 @@ h1 {
 
 .carousel-container {
     position: relative;
-    width: 320px;
-    height: 450px;
+    width: 380px;
+    height: 550px;
     transform-style: preserve-3d;
     transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
 }
@@ -368,8 +368,8 @@ h1 {
 
 .project-card {
     position: absolute;
-    width: 320px;
-    height: 450px;
+    width: 380px;
+    height: 550px;
     left: 0;
     top: 0;
     background: rgba(15, 23, 42, 0.9);
