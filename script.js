@@ -21,21 +21,27 @@ document.addEventListener('DOMContentLoaded', () => {
             starsContainer.appendChild(star);
         }
     }
-    // 3D Carousel Logic
+    // 3D Carousel Logic with Damping (Smoothness)
     const carousel = document.querySelector('.carousel-container');
     const cards = document.querySelectorAll('.project-card');
     const totalCards = cards.length;
     const angleStep = 360 / totalCards;
 
-    // Adjust radius based on screen size
-    let radius = window.innerWidth < 768 ? 300 : 500;
-
+    let radius = window.innerWidth < 768 ? 320 : 550;
+    let targetRotation = 0;
     let currentRotation = 0;
     let isDragging = false;
     let startX = 0;
     let rotationOnStart = 0;
+    let lastX = 0;
+    let velocity = 0;
 
     function updateCarousel() {
+        // Smoothing: Current rotation follows target rotation with damping
+        if (!isDragging) {
+            currentRotation += (targetRotation - currentRotation) * 0.1;
+        }
+
         cards.forEach((card, index) => {
             const angle = (index * angleStep) + currentRotation;
             const x = Math.sin(angle * Math.PI / 180) * radius;
@@ -44,63 +50,77 @@ document.addEventListener('DOMContentLoaded', () => {
             // 3D Transform
             card.style.transform = `translateX(${x}px) translateZ(${z}px) rotateY(${angle}deg)`;
 
-            // Calculate focus (the card closest to the front at angle 0)
-            const normalizedAngle = ((angle % 360) + 360) % 360; // 0 to 360
+            // Calculate focus
+            const normalizedAngle = ((angle % 360) + 360) % 360;
             const diff = Math.min(normalizedAngle, 360 - normalizedAngle);
 
-            if (diff < 20) {
+            if (diff < 15) {
                 card.classList.add('active');
-                card.style.opacity = '1';
-                card.style.filter = 'none';
             } else {
                 card.classList.remove('active');
-                card.style.opacity = (1 - (diff / 200)).toString();
-                card.style.filter = `blur(${diff / 20}px) grayscale(${diff / 100})`;
             }
+
+            // Smooth opacity/blur based on depth
+            const opacity = Math.max(0.2, 1 - (diff / 180));
+            card.style.opacity = opacity;
+            const blur = Math.min(5, diff / 20);
+            card.style.filter = diff > 40 ? `blur(${blur}px) grayscale(0.5)` : 'none';
         });
+
+        requestAnimationFrame(updateCarousel);
     }
 
     // Handle Click to focus
     cards.forEach((card, index) => {
         card.addEventListener('click', (e) => {
-            const targetRotation = - (index * angleStep);
+            if (isDragging && Math.abs(velocity) > 2) {
+                e.preventDefault();
+                return;
+            }
 
-            // Check if we need to wrap around for shorter rotation path
-            let diff = targetRotation - (currentRotation % 360);
+            const cardRotation = - (index * angleStep);
+            let diff = cardRotation - (targetRotation % 360);
+
             if (diff < -180) diff += 360;
             if (diff > 180) diff -= 360;
 
-            currentRotation += diff;
-            updateCarousel();
+            targetRotation += diff;
         });
     });
 
-    // Interaction Support
+    // Unified Interaction Logic
     const startInteraction = (e) => {
         isDragging = true;
         startX = e.type.includes('touch') ? e.touches[0].pageX : e.pageX;
-        rotationOnStart = currentRotation;
-        carousel.style.transition = 'none';
+        lastX = startX;
+        rotationOnStart = targetRotation;
+        velocity = 0;
     };
 
     const moveInteraction = (e) => {
         if (!isDragging) return;
         const currentX = e.type.includes('touch') ? e.touches[0].pageX : e.pageX;
         const deltaX = currentX - startX;
-        currentRotation = rotationOnStart + (deltaX * 0.1);
-        updateCarousel();
+
+        velocity = currentX - lastX;
+        lastX = currentX;
+
+        targetRotation = rotationOnStart + (deltaX * 0.15); // Sensitivity
+        currentRotation = targetRotation; // Immediate follow while dragging
     };
 
     const endInteraction = () => {
         if (!isDragging) return;
         isDragging = false;
-        carousel.style.transition = 'transform 1.2s cubic-bezier(0.19, 1, 0.22, 1)';
+
+        // Add momentum
+        targetRotation += velocity * 0.5;
 
         // Snap to nearest card
-        currentRotation = Math.round(currentRotation / angleStep) * angleStep;
-        updateCarousel();
+        targetRotation = Math.round(targetRotation / angleStep) * angleStep;
     };
 
+    // Events
     window.addEventListener('mousedown', startInteraction);
     window.addEventListener('mousemove', moveInteraction);
     window.addEventListener('mouseup', endInteraction);
@@ -109,14 +129,12 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('touchmove', moveInteraction, { passive: true });
     window.addEventListener('touchend', endInteraction);
 
-    // Dynamic resize
-    window.addEventListener('resize', () => {
-        radius = window.innerWidth < 768 ? 300 : 500;
-        updateCarousel();
-    });
+    // Initial setup
+    requestAnimationFrame(updateCarousel);
 
-    // Initial load
-    updateCarousel();
+    window.addEventListener('resize', () => {
+        radius = window.innerWidth < 768 ? 320 : 550;
+    });
 
     // Typing Effect for Role
     const roleElement = document.getElementById('role');
