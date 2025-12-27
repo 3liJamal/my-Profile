@@ -1,5 +1,26 @@
 // Personal Portfolio Interaction Scripts
 document.addEventListener('DOMContentLoaded', () => {
+
+    // Generate Twinkling Stars
+    const starsContainer = document.getElementById('stars');
+    if (starsContainer) {
+        const numberOfStars = 100;
+        for (let i = 0; i < numberOfStars; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+
+            // Random star sizes
+            const size = Math.random() * 2 + 1;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+
+            starsContainer.appendChild(star);
+        }
+    }
     // Scroll Reveal Animation for Project Cards
     const observerOptions = {
         threshold: 0.1,
