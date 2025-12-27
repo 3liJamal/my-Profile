@@ -22,103 +22,100 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     // 3D Carousel Logic
-    const carousel = document.getElementById('carousel');
+    const carousel = document.querySelector('.carousel-container');
     const cards = document.querySelectorAll('.project-card');
     const totalCards = cards.length;
-    const radius = Math.round((300 / 2) / Math.tan(Math.PI / totalCards)) + 150; // Calculate radius based on card width
+    const angleStep = 360 / totalCards;
+
+    // Adjust radius based on screen size
+    let radius = window.innerWidth < 768 ? 300 : 500;
 
     let currentRotation = 0;
     let isDragging = false;
     let startX = 0;
     let rotationOnStart = 0;
 
-    // Initialize 3D positions
     function updateCarousel() {
         cards.forEach((card, index) => {
-            const angle = (index * (360 / totalCards));
-            card.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+            const angle = (index * angleStep) + currentRotation;
+            const x = Math.sin(angle * Math.PI / 180) * radius;
+            const z = Math.cos(angle * Math.PI / 180) * radius;
 
-            // Adjust opacity based on front/back position
-            const normalizedRotation = (currentRotation + angle) % 360;
-            const diff = Math.abs(normalizedRotation > 180 ? normalizedRotation - 360 : normalizedRotation);
-            card.style.opacity = diff > 90 ? '0.3' : '1';
+            // 3D Transform
+            card.style.transform = `translateX(${x}px) translateZ(${z}px) rotateY(${angle}deg)`;
 
-            // Toggle active class for the one in front
-            if (Math.abs(diff) < 10) {
+            // Calculate focus (the card closest to the front at angle 0)
+            const normalizedAngle = ((angle % 360) + 360) % 360; // 0 to 360
+            const diff = Math.min(normalizedAngle, 360 - normalizedAngle);
+
+            if (diff < 20) {
                 card.classList.add('active');
+                card.style.opacity = '1';
+                card.style.filter = 'none';
             } else {
                 card.classList.remove('active');
+                card.style.opacity = (1 - (diff / 200)).toString();
+                card.style.filter = `blur(${diff / 20}px) grayscale(${diff / 100})`;
             }
         });
-        carousel.style.transform = `rotateY(${-currentRotation}deg)`;
     }
 
-    // Handle Click to bring to front and Scale
+    // Handle Click to focus
     cards.forEach((card, index) => {
         card.addEventListener('click', (e) => {
-            // Prevent link from opening if it's not in front
-            if (!card.classList.contains('active')) {
-                e.preventDefault();
-                currentRotation = index * (360 / totalCards);
-                updateCarousel();
-            } else {
-                // If already front, toggle extra zoom
-                card.classList.toggle('zoomed');
-            }
+            const targetRotation = - (index * angleStep);
+
+            // Check if we need to wrap around for shorter rotation path
+            let diff = targetRotation - (currentRotation % 360);
+            if (diff < -180) diff += 360;
+            if (diff > 180) diff -= 360;
+
+            currentRotation += diff;
+            updateCarousel();
         });
     });
 
-    // Dragging Logic
-    carousel.addEventListener('mousedown', (e) => {
+    // Interaction Support
+    const startInteraction = (e) => {
         isDragging = true;
-        startX = e.pageX;
+        startX = e.type.includes('touch') ? e.touches[0].pageX : e.pageX;
         rotationOnStart = currentRotation;
         carousel.style.transition = 'none';
-    });
+    };
 
-    window.addEventListener('mousemove', (e) => {
+    const moveInteraction = (e) => {
         if (!isDragging) return;
-        const deltaX = e.pageX - startX;
-        currentRotation = rotationOnStart - (deltaX * 0.2); // Sensitivity
+        const currentX = e.type.includes('touch') ? e.touches[0].pageX : e.pageX;
+        const deltaX = currentX - startX;
+        currentRotation = rotationOnStart + (deltaX * 0.1);
         updateCarousel();
-    });
+    };
 
-    window.addEventListener('mouseup', () => {
+    const endInteraction = () => {
         if (!isDragging) return;
         isDragging = false;
-        carousel.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+        carousel.style.transition = 'transform 1.2s cubic-bezier(0.19, 1, 0.22, 1)';
 
         // Snap to nearest card
-        const step = 360 / totalCards;
-        currentRotation = Math.round(currentRotation / step) * step;
+        currentRotation = Math.round(currentRotation / angleStep) * angleStep;
+        updateCarousel();
+    };
+
+    window.addEventListener('mousedown', startInteraction);
+    window.addEventListener('mousemove', moveInteraction);
+    window.addEventListener('mouseup', endInteraction);
+
+    window.addEventListener('touchstart', startInteraction, { passive: true });
+    window.addEventListener('touchmove', moveInteraction, { passive: true });
+    window.addEventListener('touchend', endInteraction);
+
+    // Dynamic resize
+    window.addEventListener('resize', () => {
+        radius = window.innerWidth < 768 ? 300 : 500;
         updateCarousel();
     });
 
-    // Touch Support for Mobile
-    carousel.addEventListener('touchstart', (e) => {
-        isDragging = true;
-        startX = e.touches[0].pageX;
-        rotationOnStart = currentRotation;
-        carousel.style.transition = 'none';
-    });
-
-    window.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        const deltaX = e.touches[0].pageX - startX;
-        currentRotation = rotationOnStart - (deltaX * 0.3);
-        updateCarousel();
-    });
-
-    window.addEventListener('touchend', () => {
-        if (!isDragging) return;
-        isDragging = false;
-        carousel.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
-        const step = 360 / totalCards;
-        currentRotation = Math.round(currentRotation / step) * step;
-        updateCarousel();
-    });
-
-    // Initial setup
+    // Initial load
     updateCarousel();
 
     // Typing Effect for Role

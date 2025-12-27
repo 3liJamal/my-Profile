@@ -339,34 +339,27 @@ h1 {
     border-radius: 2px;
 }
 
-/* 3D Carousel Section */
+/* 3D Stage Carousel */
 #projects {
-    perspective: 2000px;
-    padding: 100px 0;
-    overflow: visible;
-    min-height: 800px;
+    perspective: 2500px;
+    padding: 150px 0;
+    overflow: hidden;
+    min-height: 900px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 .carousel-container {
     position: relative;
-    width: 300px;
-    height: 400px;
-    margin-top: 130px;
+    width: 320px;
+    height: 450px;
     transform-style: preserve-3d;
-    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-    cursor: grab;
-}
-
-.carousel-container:active {
-    cursor: grabbing;
+    transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .projects-grid {
-    display: block;
-    /* Disable previous flex/grid */
     position: absolute;
     width: 100%;
     height: 100%;
@@ -375,27 +368,39 @@ h1 {
 
 .project-card {
     position: absolute;
-    width: 300px;
-    height: 400px;
+    width: 320px;
+    height: 450px;
     left: 0;
     top: 0;
-    background: var(--bg-card);
-    border: var(--glass-border);
-    border-radius: 20px;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease, opacity 0.4s ease;
-    backface-visibility: hidden;
-    user-select: none;
-    -webkit-user-drag: none;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
 }
 
+/* Specific styling for the card in focus */
 .project-card.active {
-    transform: scale(1.2) !important;
-    z-index: 100;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
-    pointer-events: auto;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.4),
+        inset 0 0 20px rgba(99, 102, 241, 0.1);
+    transform: translateZ(100px) scale(1.1);
+    z-index: 10;
+}
+
+.project-card:not(.active) {
+    opacity: 0.6;
+    filter: blur(1px) grayscale(0.3);
+}
+
+.project-card.active .project-img {
+    filter: brightness(1.2);
 }
 
 /* Featured Badge Adjustment */
@@ -422,43 +427,47 @@ h1 {
     /* Keep letter-spacing */
 }
 
+/* Project Content Adjustments */
 .project-content {
-    padding: 2rem 1.5rem;
+    padding: 2rem;
     height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
 }
 
 .project-img-container {
     width: 100%;
-    height: 160px;
-    border-radius: 12px;
+    height: 200px;
+    border-radius: 16px;
     overflow: hidden;
-    margin-bottom: 1.5rem;
-    position: relative;
-    /* Keep position relative */
+    margin-bottom: 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .project-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.4s ease, filter 0.4s ease;
-    /* Keep transition */
+    transition: transform 0.6s ease;
 }
 
-/* Remove project-card:hover .project-img as it's not in the new design */
+.project-card:hover .project-img {
+    transform: scale(1.15);
+}
 
 .project-title {
-    font-size: 1.4rem;
-    margin-bottom: 0.8rem;
-    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #fff;
 }
 
 .project-desc {
-    color: var(--text-secondary);
     font-size: 0.95rem;
-    margin-bottom: 1rem;
+    color: #cbd5e1;
+    line-height: 1.6;
+    margin-bottom: 2rem;
 }
 
 .project-tags {
@@ -468,9 +477,6 @@ h1 {
 }
 
 .tag {
-    background: rgba(99, 102, 241, 0.1);
-    color: var(--primary-color);
-    padding: 0.25rem 0.75rem;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 500;
