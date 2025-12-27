@@ -2203,3 +2203,317 @@ footer {
         padding: 0 20px;
     }
 }
+
+/* --- THE GALAXY ORBIT STYLE --- */
+.tech-galaxy-section {
+    padding: 150px 0;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at center, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+}
+
+.galaxy-container {
+    position: relative;
+    height: 700px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.galaxy-core {
+    width: 120px;
+    height: 120px;
+    background: var(--bg-card);
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    box-shadow: 0 0 50px rgba(99, 102, 241, 0.3);
+    animation: pulseCore 3s ease-in-out infinite;
+    backdrop-filter: blur(10px);
+}
+
+.galaxy-core i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.galaxy-core span {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: white;
+}
+
+/* Orbit Rings */
+.orbit {
+    position: absolute;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.orbit-1 {
+    width: 300px;
+    height: 300px;
+    animation: rotateGalaxy 30s linear infinite;
+}
+
+.orbit-2 {
+    width: 500px;
+    height: 500px;
+    animation: rotateGalaxy 50s linear infinite reverse;
+}
+
+.orbit-3 {
+    width: 700px;
+    height: 700px;
+    animation: rotateGalaxy 80s linear infinite;
+}
+
+.galaxy-item {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    /* Reverse rotation to keep icon upright */
+    animation: keepUpright var(--duration) linear infinite var(--direction);
+}
+
+.orbit-1 .galaxy-item {
+    --duration: 30s;
+    --direction: reverse;
+}
+
+.orbit-2 .galaxy-item {
+    --duration: 50s;
+    --direction: normal;
+}
+
+.orbit-3 .galaxy-item {
+    --duration: 80s;
+    --direction: reverse;
+}
+
+.galaxy-item:hover {
+    transform: scale(1.3);
+    border-color: var(--primary-color);
+    background: rgba(99, 102, 241, 0.15);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+    z-index: 20;
+}
+
+.galaxy-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Tooltip on Hover */
+.galaxy-item::before {
+    content: attr(data-name);
+    position: absolute;
+    bottom: -30px;
+    background: var(--primary-color);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.galaxy-item:hover::before {
+    opacity: 1;
+    bottom: -40px;
+}
+
+@keyframes rotateGalaxy {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes keepUpright {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulseCore {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 50px rgba(99, 102, 241, 0.3);
+    }
+
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 70px rgba(99, 102, 241, 0.5);
+    }
+}
+
+/* Positioning Icons on Orbits */
+.orbit-1 .galaxy-item:nth-child(1) {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.orbit-1 .galaxy-item:nth-child(2) {
+    top: 50%;
+    right: 0;
+    transform: translate(50%, -50%);
+}
+
+.orbit-1 .galaxy-item:nth-child(3) {
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+}
+
+.orbit-1 .galaxy-item:nth-child(4) {
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+}
+
+.orbit-2 .galaxy-item:nth-child(1) {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.orbit-2 .galaxy-item:nth-child(2) {
+    top: 15%;
+    right: 15%;
+    transform: translate(50%, -50%);
+}
+
+.orbit-2 .galaxy-item:nth-child(3) {
+    top: 50%;
+    right: 0;
+    transform: translate(50%, -50%);
+}
+
+.orbit-2 .galaxy-item:nth-child(4) {
+    bottom: 15%;
+    right: 15%;
+    transform: translate(50%, 50%);
+}
+
+.orbit-2 .galaxy-item:nth-child(5) {
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+}
+
+.orbit-2 .galaxy-item:nth-child(6) {
+    bottom: 15%;
+    left: 15%;
+    transform: translate(-50%, 50%);
+}
+
+.orbit-2 .galaxy-item:nth-child(7) {
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+}
+
+.orbit-2 .galaxy-item:nth-child(8) {
+    top: 15%;
+    left: 15%;
+    transform: translate(-50%, -50%);
+}
+
+.orbit-3 .galaxy-item:nth-child(1) {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.orbit-3 .galaxy-item:nth-child(2) {
+    top: 15%;
+    right: 15%;
+    transform: translate(50%, -50%);
+}
+
+.orbit-3 .galaxy-item:nth-child(3) {
+    top: 50%;
+    right: 0;
+    transform: translate(50%, -50%);
+}
+
+.orbit-3 .galaxy-item:nth-child(4) {
+    bottom: 15%;
+    right: 15%;
+    transform: translate(50%, 50%);
+}
+
+.orbit-3 .galaxy-item:nth-child(5) {
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+}
+
+.orbit-3 .galaxy-item:nth-child(6) {
+    bottom: 15%;
+    left: 15%;
+    transform: translate(-50%, 50%);
+}
+
+.orbit-3 .galaxy-item:nth-child(7) {
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+}
+
+.orbit-3 .galaxy-item:nth-child(8) {
+    top: 15%;
+    left: 15%;
+    transform: translate(-50%, -50%);
+}
+
+@media (max-width: 968px) {
+    .galaxy-container {
+        height: 500px;
+        transform: scale(0.7);
+    }
+
+    .tech-galaxy-section {
+        padding: 80px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .galaxy-container {
+        height: 400px;
+        transform: scale(0.5);
+    }
+}
