@@ -325,8 +325,8 @@ h1 {
 /* Projects Section */
 .section-title {
     text-align: center;
-    font-size: 2rem;
-    margin-bottom: 3rem;
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
     position: relative;
     display: inline-block;
 }
@@ -334,7 +334,7 @@ h1 {
 .section-title::after {
     content: '';
     position: absolute;
-    bottom: -10px;
+    bottom: -6px;
     left: 50%;
     transform: translateX(-50%);
     width: 60px;
@@ -346,7 +346,7 @@ h1 {
 /* 3D Stage Carousel */
 #projects {
     perspective: 2500px;
-    padding: 150px 0;
+    padding: 60px 0 150px;
     overflow: hidden;
     min-height: 900px;
     display: flex;
