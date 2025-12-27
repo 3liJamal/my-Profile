@@ -47,23 +47,23 @@ document.addEventListener('DOMContentLoaded', () => {
             const x = Math.sin(angle * Math.PI / 180) * radius;
             const z = Math.cos(angle * Math.PI / 180) * radius;
 
-            // 3D Transform
-            card.style.transform = `translateX(${x}px) translateZ(${z}px) rotateY(${angle}deg)`;
+            // 3D Transform using translate3d for hardware acceleration
+            card.style.transform = `translate3d(${x}px, 0, ${z}px) rotateY(${angle}deg)`;
 
-            // Calculate focus
+            // Calculate distance from front
             const normalizedAngle = ((angle % 360) + 360) % 360;
             const diff = Math.min(normalizedAngle, 360 - normalizedAngle);
 
-            if (diff < 15) {
+            // Toggle active state for front card
+            if (diff < 20) {
                 card.classList.add('active');
+                card.style.opacity = '1';
+                card.style.zIndex = '10';
             } else {
                 card.classList.remove('active');
+                card.style.opacity = Math.max(0.3, 1 - (diff / 180));
+                card.style.zIndex = '1';
             }
-
-            // Smooth opacity based on distance
-            const opacity = Math.max(0.4, 1 - (diff / 150));
-            card.style.opacity = opacity;
-            card.style.filter = 'none'; // Keep background projects sharp and visible
         });
 
         requestAnimationFrame(updateCarousel);

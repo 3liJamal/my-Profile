@@ -372,20 +372,21 @@ h1 {
     height: 550px;
     left: 0;
     top: 0;
-    background: rgba(255, 255, 255, 0.03);
-    /* High transparency */
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    /* Use solid semi-transparent background - much faster than blur */
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 24px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     display: flex;
     flex-direction: column;
-    /* Optimizing for smoothness */
-    transition: transform 0.1s linear, box-shadow 0.4s ease, opacity 0.4s ease, filter 0.4s ease;
+    /* Remove CSS transitions on transform to prevent conflicts with JS animation loop */
+    transition: box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
     backface-visibility: hidden;
     user-select: none;
     -webkit-user-drag: none;
-    will-change: transform, opacity;
+    pointer-events: auto;
+    /* Ensure hardware acceleration */
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 /* Specific styling for the card in focus */
