@@ -290,68 +290,54 @@ document.addEventListener('DOMContentLoaded', () => {
         if (indicator) indicator.remove();
     }
 
-    // --- ADVANCED AI CONNECTIVITY (Real API Integration) ---
+    // --- SMART LOCAL AI ENGINE (Offline-Ready) ---
     async function getAIResponse(input) {
-        // --- CONFIGURATION ---
-        // To use a real AI (like ChatGPT/Copilot), you need an API Key.
-        // Replace 'YOUR_API_KEY' with your actual key from OpenAI or a similar provider.
-        // ⚠️ SECURITY: Never commit real API keys to public repos!
-        // To enable live AI, set your key securely (e.g., environment variable or backend proxy)
-        const API_KEY = "YOUR_API_KEY_HERE";
-        const API_URL = "https://api.openai.com/v1/chat/completions";
+        const query = input.toLowerCase();
 
-        // System Prompt: This defines the AI's identity and knowledge about you.
-        const system_instruction = `
-            You are "Portfolio Copilot", Ali Aljamal's highly intelligent AI assistant. 
-            CONTEXT:
-            - Ali is a Full Stack Developer from Jenin, Palestine 🇵🇸.
-            - Tech Stack: React.js, Node.js, Python (Django/Flask), SQL, NoSQL (MongoDB), Tailwind CSS, UI/UX Design.
-            - Soft Skills: Problem-solving, clean code, agile mindset.
-            - Contact: WhatsApp (+972595498848), Email (alialjamal647@gmail.com).
-            - CV: Available in the 'Resume' section of this page.
-            
-            RULES:
-            1. Be professional, helpful, and creative.
-            2. Match the user's language (Arabic or English).
-            3. Answer specialized coding questions if asked, showcasing Ali's expertise.
-            4. Keep responses medium-length (not too short, not too long).
-            5. If asked about salary or personal stuff, redirect them to contact Ali directly.
-        `;
+        // Simulating processing delay for realism
+        await new Promise(resolve => setTimeout(resolve, 800));
 
-        if (API_KEY === "YOUR_API_KEY_HERE" || !API_KEY) {
-            return "As your **Portfolio Copilot**, I'm currently in 'Static Mode'. Ali is in the process of linking my brain to the live Cloud AI! In the meantime, I can tell you he is a brilliant Full Stack Developer specialized in React and Node.js. Check his projects below!";
-        }
-
-        try {
-            const response = await fetch(API_URL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${API_KEY.trim()}`
-                },
-                body: JSON.stringify({
-                    model: "gpt-4o-mini",
-                    messages: [
-                        { role: "system", content: system_instruction },
-                        { role: "user", content: input }
-                    ],
-                    temperature: 0.7
-                })
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error("OpenAI API Error Details:", errorData);
-                // We will return the specific error to the user for debugging
-                return `OpenAI Error: ${errorData.error ? errorData.error.message : "Internal Server Error"}`;
+        // Knowledge Base Actions & Responses
+        const knowledgeBase = [
+            {
+                keywords: ['hello', 'hi', 'hey', 'ahlan', 'مرحبا', 'هلا'],
+                response: "Hello! I'm **Aura**, Ali's AI assistant. How can I help you today? I can tell you about Ali's skills, projects, or how to contact him."
+            },
+            {
+                keywords: ['skill', 'tech', 'stack', 'know', 'مهارات', 'تقنيات'],
+                response: "Ali is a **Full Stack Developer** specializing in:<br>• **Frontend:** React.js, JavaScript (ES6+), HTML5/CSS3, Tailwind CSS.<br>• **Backend:** Node.js, Python (Django/Flask).<br>• **Databases:** MongoDB, SQL.<br>He also has strong skills in UI/UX design and problem-solving!"
+            },
+            {
+                keywords: ['project', 'work', 'build', 'مشاريع', 'اعمال'],
+                response: "Ali has worked on several impressive projects:<br>1. **Lab Data Project:** A collaborative data-focused platform.<br>2. **my-Profile:** This stunning portfolio website!<br>3. **Algorithm-as:** A deep dive into data structures and patterns.<br>You can check the **Featured Projects** section right below for more details."
+            },
+            {
+                keywords: ['contact', 'email', 'phone', 'whatsapp', 'reach', 'تواصل', 'ايميل', 'واتس'],
+                response: "You can reach Ali directly via:<br>• **WhatsApp:** [+972595498848](https://wa.me/972595498848)<br>• **Email:** [alialjamal647@gmail.com](mailto:alialjamal647@gmail.com)<br>He is currently **Available** for new opportunities!"
+            },
+            {
+                keywords: ['cv', 'resume', 'experience', 'سيرة', 'خبرة'],
+                response: "You can view and download Ali's full **Resume/CV** in the 'Resume' section of this page. It contains detailed information about his education and professional journey."
+            },
+            {
+                keywords: ['location', 'from', 'where', 'live', 'اين', 'منين'],
+                response: "Ali is based in **Jenin, Palestine 🇵🇸**, and he is open to remote opportunities worldwide!"
+            },
+            {
+                keywords: ['who', 'ali', 'name', 'مين', 'علي'],
+                response: "Ali Aljamal is a passionate Full Stack Developer who loves building elegant and scalable digital solutions. He's a creative thinker and a dedicated problem solver."
             }
+        ];
 
-            const data = await response.json();
-            return data.choices[0].message.content;
-        } catch (error) {
-            console.error("AI Connection Error:", error.message);
-            return `Connection Error: ${error.message}. Please check your internet or API balance.`;
+        // Find match
+        for (const item of knowledgeBase) {
+            if (item.keywords.some(key => query.includes(key))) {
+                return item.response;
+            }
         }
+
+        // Default response if no keyword matches
+        return "That's an interesting question! While I'm specialized in Ali's portfolio, I can tell you he's highly skilled in coding. For specific inquiries, you might want to check his **Projects** or **Contact him** directly via WhatsApp!";
     }
 
     // --- Tech Galaxy Core Interaction ---
