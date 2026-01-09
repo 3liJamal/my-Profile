@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (chatFormInput) {
-        chatFormInput.addEventListener('submit', (e) => {
+        chatFormInput.addEventListener('submit', async (e) => {
             e.preventDefault();
             const message = userInput.value.trim();
             if (message) {
@@ -241,11 +241,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 showTypingIndicator();
 
-                setTimeout(() => {
+                try {
+                    // We call the async function and WAIT for the real response
+                    const response = await getAIResponse(message);
                     removeTypingIndicator();
-                    const response = getAIResponse(message);
                     addMessage(response, 'ai');
-                }, 1500);
+                } catch (error) {
+                    removeTypingIndicator();
+                    addMessage("I'm sorry, I'm having trouble connecting to my brain right now. Please try again later!", 'ai');
+                }
             }
         });
     }
@@ -254,8 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${sender}-message`;
 
-        const avatarImg = 'https://images.unsplash.com/photo-1675271591211-126ad94e495d?auto=format&fit=crop&q=80&w=100&h=100';
-        const avatar = sender === 'ai' ? `<div class="message-avatar"><img src="${avatarImg}" alt="Aura"></div>` : '';
+        const avatar = sender === 'ai' ? `<div class="message-avatar"><i class="fas fa-sparkles" style="color: white; font-size: 0.8rem;"></i></div>` : '';
 
         messageDiv.innerHTML = `
             ${avatar}
@@ -270,9 +273,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const typingDiv = document.createElement('div');
         typingDiv.className = 'message ai-message typing-indicator';
         typingDiv.id = 'typingIndicator';
-        const avatarImg = 'https://images.unsplash.com/photo-1675271591211-126ad94e495d?auto=format&fit=crop&q=80&w=100&h=100';
         typingDiv.innerHTML = `
-            <div class="message-avatar"><img src="${avatarImg}" alt="Aura"></div>
+            <div class="message-avatar"><i class="fas fa-sparkles" style="color: white; font-size: 0.8rem;"></i></div>
             <div class="message-content">
                 <div class="typing-dots">
                     <span></span><span></span><span></span>
@@ -288,53 +290,67 @@ document.addEventListener('DOMContentLoaded', () => {
         if (indicator) indicator.remove();
     }
 
-    function getAIResponse(input) {
-        const msg = input.toLowerCase().trim();
+    // --- ADVANCED AI CONNECTIVITY (Real API Integration) ---
+    async function getAIResponse(input) {
+        // --- CONFIGURATION ---
+        // To use a real AI (like ChatGPT/Copilot), you need an API Key.
+        // Replace 'YOUR_API_KEY' with your actual key from OpenAI or a similar provider.
+        // ⚠️ SECURITY: Never commit real API keys to public repos!
+        // To enable live AI, set your key securely (e.g., environment variable or backend proxy)
+        const API_KEY = "YOUR_API_KEY_HERE";
+        const API_URL = "https://api.openai.com/v1/chat/completions";
 
-        // --- ARABIC RESPONSES ---
-        if (msg.match(/[أ-ي]/)) {
-            if (msg.includes('مين') || msg.includes('اسم') || msg.includes('من انت') || msg.includes('من هو') || msg.includes('مين انت')) {
-                return "أنا Aura، المساعد الذكي الخاص بعلي! أنا هنا لمساعدتك في التعرف على مهاراته ومشاريعه الاستثنائية.";
-            } else if (msg.includes('مهار') || msg.includes('شو بشتغل') || msg.includes('شو بيعرف') || msg.includes('اللغات') || msg.includes('تقنيات')) {
-                return "علي مطور Full Stack محترف ومبدع، يتقن React.js, Node.js, Python (Django), وتصميم واجهات UI/UX عصرية ومريحة للمستخدم.";
-            } else if (msg.includes('مشروع') || msg.includes('اعمال') || msg.includes('شغل') || msg.includes('مشاريع')) {
-                return "قام علي بالعمل على العديد من المشاريع المميزة مثل منصات التجارة الإلكترونية وأنظمة الإدارة المعقدة. يمكنك رؤية تفاصيلها في قسم المشاريع في منتصف الصفحة!";
-            } else if (msg.includes('سيرة') || msg.includes('cv') || msg.includes('سي في') || msg.includes('رزومي') || msg.includes('الملف الشخصي')) {
-                return "يمكنك عرض وتحميل السيرة الذاتية (CV) الخاصة بعلي من قسم Resume الموجود في الموقع بضغطة زر واحدة.";
-            } else if (msg.includes('تواص') || msg.includes('رقم') || msg.includes('ايميل') || msg.includes('بريد') || msg.includes('واتساب') || msg.includes('تواصل')) {
-                return "يمكنك التواصل مع علي مباشرة عبر الواتساب، أو إرسال رسالة بريد إلكتروني، أو حتى استخدام نموذج التواصل أسفل الصفحة. هو متوفر دائماً للفرص الجديدة!";
-            } else if (msg.includes('موقع') || msg.includes('مكان') || msg.includes('وين') || msg.includes('اي بلد')) {
-                return "علي يسكن في مدينة جنين، فلسطين 🇵🇸. وهو منفتح للعمل عن بعد مع شركات من جميع أنحاء العالم.";
-            } else if (msg.includes('هلا') || msg.includes('مرحبا') || msg.includes('كيفك') || msg.includes('سلام') || msg.includes('هاي') || msg.includes('صباح') || msg.includes('مساء')) {
-                return "أهلاً بك! أنا Aura، مساعدك الذكي. كيف يمكنني مساعدتك اليوم؟ يمكنني إخبارك عن مهارات علي، أو مشاريعه، أو كيف تتواصل معه للعمل معاً.";
-            } else if (msg.includes('شكرا') || msg.includes('تسلم') || msg.includes('مشكور')) {
-                return "على الرحب والسعة! يسعدني دائماً تقديم المساعدة. هل هناك شيء آخر تود معرفته عن علي؟";
-            } else {
-                return "سؤال جميل! أنا لا أزال أتعلم، ولكن يمكنني إخبارك بكل إعجاب عن مهارات علي، مشاريعه، خبراته، أو طرق التواصل معه. جرب سؤالي عن 'مهاراته' أو 'مشاريعه'!";
-            }
+        // System Prompt: This defines the AI's identity and knowledge about you.
+        const system_instruction = `
+            You are "Portfolio Copilot", Ali Aljamal's highly intelligent AI assistant. 
+            CONTEXT:
+            - Ali is a Full Stack Developer from Jenin, Palestine 🇵🇸.
+            - Tech Stack: React.js, Node.js, Python (Django/Flask), SQL, NoSQL (MongoDB), Tailwind CSS, UI/UX Design.
+            - Soft Skills: Problem-solving, clean code, agile mindset.
+            - Contact: WhatsApp (+972595498848), Email (alialjamal647@gmail.com).
+            - CV: Available in the 'Resume' section of this page.
+            
+            RULES:
+            1. Be professional, helpful, and creative.
+            2. Match the user's language (Arabic or English).
+            3. Answer specialized coding questions if asked, showcasing Ali's expertise.
+            4. Keep responses medium-length (not too short, not too long).
+            5. If asked about salary or personal stuff, redirect them to contact Ali directly.
+        `;
+
+        if (API_KEY === "YOUR_API_KEY_HERE" || !API_KEY) {
+            return "As your **Portfolio Copilot**, I'm currently in 'Static Mode'. Ali is in the process of linking my brain to the live Cloud AI! In the meantime, I can tell you he is a brilliant Full Stack Developer specialized in React and Node.js. Check his projects below!";
         }
 
-        // --- ENGLISH RESPONSES ---
-        if (msg.includes('name') || msg.includes('who are you') || msg.includes('who is ali')) {
-            return "I am Aura, Ali's personal AI assistant! I'm here to guide you through his portfolio and showcase his expertise in web development.";
-        } else if (msg.includes('skill') || msg.includes('know') || msg.includes('techno') || msg.includes('language') || msg.includes('stack')) {
-            return "Ali is a talented Full Stack Developer skilled in React.js, Node.js, Python (Django/Flask), and modern CSS frameworks like Tailwind. He also has a great eye for UI/UX design!";
-        } else if (msg.includes('project') || msg.includes('work') || msg.includes('portfolio') || msg.includes('github')) {
-            return "Ali has built impressive projects ranging from E-commerce platforms to complex management systems. You can find his GitHub link and explore his code in the Projects section!";
-        } else if (msg.includes('cv') || msg.includes('resume') || msg.includes('download')) {
-            return "You can view and download Ali's professional CV in the dedicated 'Resume' section of this page. It's kept up to date for 2025!";
-        } else if (msg.includes('contact') || msg.includes('hire') || msg.includes('email') || msg.includes('whatsapp') || msg.includes('phone')) {
-            return "Getting in touch with Ali is easy! You can use the contact form at the bottom, send an email, or message him directly via WhatsApp. He's currently available for new opportunities.";
-        } else if (msg.includes('location') || msg.includes('where') || msg.includes('live')) {
-            return "Ali is based in Jenin, Palestine 🇵🇸, and is fully equipped for remote work and global collaborations.";
-        } else if (msg.includes('hi') || msg.includes('hello') || msg.includes('hey') || msg.includes('hola') || msg.includes('morning') || msg.includes('evening')) {
-            return "Hey there! I am Aura. How can I brighten your day? I can tell you all about Ali's technical skills, professional projects, or contact details.";
-        } else if (msg.includes('how are you')) {
-            return "I'm doing fantastic! Just helping people explore Ali's amazing work. How can I assist you today?";
-        } else if (msg.includes('thank') || msg.includes('thanks') || msg.includes('great')) {
-            return "You're very welcome! I'm glad I could help. Is there anything else you'd like to explore about Ali's portfolio?";
-        } else {
-            return "That's a great input! While I'm still evolving, I can definitely provide info on Ali's skills, projects, resume, and how to reach him. Feel free to ask about his 'tech stack'!";
+        try {
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${API_KEY.trim()}`
+                },
+                body: JSON.stringify({
+                    model: "gpt-4o-mini",
+                    messages: [
+                        { role: "system", content: system_instruction },
+                        { role: "user", content: input }
+                    ],
+                    temperature: 0.7
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error("OpenAI API Error Details:", errorData);
+                // We will return the specific error to the user for debugging
+                return `OpenAI Error: ${errorData.error ? errorData.error.message : "Internal Server Error"}`;
+            }
+
+            const data = await response.json();
+            return data.choices[0].message.content;
+        } catch (error) {
+            console.error("AI Connection Error:", error.message);
+            return `Connection Error: ${error.message}. Please check your internet or API balance.`;
         }
     }
 

@@ -1559,15 +1559,16 @@ footer {
 .message-avatar {
     width: 35px;
     height: 35px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    /* Copilot-inspired gradient */
+    background: linear-gradient(135deg, #0078d4 0%, #a672f6 50%, #f7630c 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    /* Ensure image stays circular */
     flex-shrink: 0;
-    box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 0 15px rgba(0, 120, 212, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .toggle-avatar img,
